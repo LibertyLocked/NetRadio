@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioPlayer", "RadioPlayer\RadioPlayer.csproj", "{942A59E1-3FDC-4A46-9A8D-FC22716A6922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialServer", "SocialServer\SocialServer.csproj", "{8A07D3B1-F5E6-4440-BEB9-0AAAA59C262B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioServer", "RadioServer\RadioServer.csproj", "{5B5FAE49-7345-4FE8-9DBA-E76A8D599E41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{942A59E1-3FDC-4A46-9A8D-FC22716A6922}.Debug|x86.ActiveCfg = Debug|x86
+		{942A59E1-3FDC-4A46-9A8D-FC22716A6922}.Debug|x86.Build.0 = Debug|x86
+		{942A59E1-3FDC-4A46-9A8D-FC22716A6922}.Release|x86.ActiveCfg = Release|x86
+		{942A59E1-3FDC-4A46-9A8D-FC22716A6922}.Release|x86.Build.0 = Release|x86
+		{8A07D3B1-F5E6-4440-BEB9-0AAAA59C262B}.Debug|x86.ActiveCfg = Debug|x86
+		{8A07D3B1-F5E6-4440-BEB9-0AAAA59C262B}.Debug|x86.Build.0 = Debug|x86
+		{8A07D3B1-F5E6-4440-BEB9-0AAAA59C262B}.Release|x86.ActiveCfg = Release|x86
+		{8A07D3B1-F5E6-4440-BEB9-0AAAA59C262B}.Release|x86.Build.0 = Release|x86
+		{5B5FAE49-7345-4FE8-9DBA-E76A8D599E41}.Debug|x86.ActiveCfg = Debug|x86
+		{5B5FAE49-7345-4FE8-9DBA-E76A8D599E41}.Debug|x86.Build.0 = Debug|x86
+		{5B5FAE49-7345-4FE8-9DBA-E76A8D599E41}.Release|x86.ActiveCfg = Release|x86
+		{5B5FAE49-7345-4FE8-9DBA-E76A8D599E41}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
