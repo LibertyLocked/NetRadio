@@ -6,46 +6,56 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Media;
+
+using NAudio;
+using NAudio.Wave;
 
 namespace RadioPlayer
 {
     public partial class FormPlayer : Form
     {
-        public static WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
-
-        public static void PlayMusicFromURL(string url)
-        {
-            player.URL = url;
-
-            player.settings.volume = 100;
-
-            player.controls.play();
-        }
-
-        public static void PlayerStop(string url)
-        {
-            player.controls.stop();
-        }
-
-        public static void SetPlayerVolume(int volume)
-        {
-            player.settings.volume = volume;
-        }
-
+        ShoutcastPlayer player = new ShoutcastPlayer();
 
         public FormPlayer()
         {
             InitializeComponent();
+            textBoxUrl.Text = "http://205.164.62.22:7800/";
+            labelTitle.Text = "";
         }
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            PlayMusicFromURL(textBoxUrl.Text);
+            player.StartPlayback(textBoxUrl.Text);
         }
 
-        private void textBoxVolume_TextChanged(object sender, EventArgs e)
+        private void buttonStop_Click(object sender, EventArgs e)
         {
-            SetPlayerVolume(Int32.Parse(textBoxVolume.Text));
+            player.StopPlayback();
+        }
+
+        private void trackBarVolume_Scroll(object sender, EventArgs e)
+        {
+            labelVolume.Text = trackBarVolume.Value.ToString();
+
+            player.Volume = trackBarVolume.Value / (float)trackBarVolume.Maximum;
+        }
+
+        private void timerPlayer_Tick(object sender, EventArgs e)
+        {
+            if (player != null)
+            {
+                player.Update();
+                labelState.Text = player.State.ToString();
+                if (player.State != StreamingPlaybackState.Stopped) labelTitle.Text = player.StreamTitle;
+                else labelTitle.Text = "";
+            }
+
+        }
+
+        private void FormPlayer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            player.StopPlayback();
         }
     }
 }
