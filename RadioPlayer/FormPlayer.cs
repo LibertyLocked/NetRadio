@@ -29,6 +29,11 @@ namespace RadioPlayer
             player.StartPlayback(textBoxUrl.Text);
         }
 
+        private void buttonPause_Click(object sender, EventArgs e)
+        {
+            player.PausePlayback();
+        }
+
         private void buttonStop_Click(object sender, EventArgs e)
         {
             player.StopPlayback();

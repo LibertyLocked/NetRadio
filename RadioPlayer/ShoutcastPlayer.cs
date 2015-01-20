@@ -47,6 +47,90 @@ namespace RadioPlayer
             volume = 1f;
         }
 
+        public void StartPlayback(string url)
+        {
+            if (playbackState == StreamingPlaybackState.Stopped)
+            {
+                playbackState = StreamingPlaybackState.Buffering;
+                bufferedWaveProvider = null;
+                ThreadPool.QueueUserWorkItem(StreamMp3, url);
+                //timer1.Enabled = true;
+            }
+            else if (playbackState == StreamingPlaybackState.Paused)
+            {
+                playbackState = StreamingPlaybackState.Buffering;
+            }
+        }
+
+        public void PausePlayback()
+        {
+            if (playbackState == StreamingPlaybackState.Playing || playbackState == StreamingPlaybackState.Buffering)
+            {
+                waveOut.Pause();
+                Debug.WriteLine(String.Format("User requested Pause, waveOut.PlaybackState={0}", waveOut.PlaybackState));
+                playbackState = StreamingPlaybackState.Paused;
+            }
+        }
+
+        public void StopPlayback()
+        {
+            if (playbackState != StreamingPlaybackState.Stopped)
+            {
+                if (!fullyDownloaded)
+                {
+                    webRequest.Abort();
+                }
+                
+                playbackState = StreamingPlaybackState.Stopped;
+                if (waveOut != null)
+                { 
+                    waveOut.Stop();
+                    waveOut.Dispose();
+                    waveOut = null;
+                }
+                //timer1.Enabled = false;
+                // n.b. streaming thread may not yet have exited
+                Thread.Sleep(500);
+            }
+        }
+
+        public void Update()
+        {
+            if (playbackState != StreamingPlaybackState.Stopped)
+            {
+                if (waveOut == null && bufferedWaveProvider != null)
+                {
+                    Debug.WriteLine("Creating WaveOut Device");
+                    waveOut = CreateWaveOut(); 
+                    waveOut.PlaybackStopped += OnPlaybackStopped;
+                    volumeProvider = new VolumeWaveProvider16(bufferedWaveProvider);
+                    volumeProvider.Volume = Volume;
+                    waveOut.Init(volumeProvider);
+                }
+                else if (bufferedWaveProvider != null)
+                {
+                    volumeProvider.Volume = Volume;
+
+                    var bufferedSeconds = bufferedWaveProvider.BufferedDuration.TotalSeconds;
+                    // make it stutter less if we buffer up a decent amount before playing
+                    if (bufferedSeconds < 0.5 && playbackState == StreamingPlaybackState.Playing && !fullyDownloaded)
+                    {
+                        Pause();
+                    }
+                    else if (bufferedSeconds > 4 && playbackState == StreamingPlaybackState.Buffering)
+                    {
+                        Play();
+                    }
+                    else if (fullyDownloaded && bufferedSeconds == 0)
+                    {
+                        Debug.WriteLine("Reached end of stream");
+                        StopPlayback();
+                    }
+                }
+
+            }
+        }
+
         private void StreamMp3(object state)
         {
             fullyDownloaded = false;
@@ -66,7 +150,7 @@ namespace RadioPlayer
             {
                 resp = (HttpWebResponse)webRequest.GetResponse();
             }
-            catch(WebException e)
+            catch (WebException e)
             {
                 if (e.Status != WebExceptionStatus.RequestCanceled)
                 {
@@ -175,83 +259,9 @@ namespace RadioPlayer
         {
             get
             {
-                return bufferedWaveProvider != null && 
-                       bufferedWaveProvider.BufferLength - bufferedWaveProvider.BufferedBytes 
+                return bufferedWaveProvider != null &&
+                       bufferedWaveProvider.BufferLength - bufferedWaveProvider.BufferedBytes
                        < bufferedWaveProvider.WaveFormat.AverageBytesPerSecond / 4;
-            }
-        }
-
-        public void StartPlayback(string url)
-        {
-            if (playbackState == StreamingPlaybackState.Stopped)
-            {
-                playbackState = StreamingPlaybackState.Buffering;
-                bufferedWaveProvider = null;
-                ThreadPool.QueueUserWorkItem(StreamMp3, url);
-                //timer1.Enabled = true;
-            }
-            else if (playbackState == StreamingPlaybackState.Paused)
-            {
-                playbackState = StreamingPlaybackState.Buffering;
-            }
-        }
-
-        public void StopPlayback()
-        {
-            if (playbackState != StreamingPlaybackState.Stopped)
-            {
-                if (!fullyDownloaded)
-                {
-                    webRequest.Abort();
-                }
-                
-                playbackState = StreamingPlaybackState.Stopped;
-                if (waveOut != null)
-                { 
-                    waveOut.Stop();
-                    waveOut.Dispose();
-                    waveOut = null;
-                }
-                //timer1.Enabled = false;
-                // n.b. streaming thread may not yet have exited
-                Thread.Sleep(500);
-            }
-        }
-
-        public void Update()
-        {
-            if (playbackState != StreamingPlaybackState.Stopped)
-            {
-                if (waveOut == null && bufferedWaveProvider != null)
-                {
-                    Debug.WriteLine("Creating WaveOut Device");
-                    waveOut = CreateWaveOut(); 
-                    waveOut.PlaybackStopped += OnPlaybackStopped;
-                    volumeProvider = new VolumeWaveProvider16(bufferedWaveProvider);
-                    volumeProvider.Volume = Volume;
-                    waveOut.Init(volumeProvider);
-                }
-                else if (bufferedWaveProvider != null)
-                {
-                    volumeProvider.Volume = Volume;
-
-                    var bufferedSeconds = bufferedWaveProvider.BufferedDuration.TotalSeconds;
-                    // make it stutter less if we buffer up a decent amount before playing
-                    if (bufferedSeconds < 0.5 && playbackState == StreamingPlaybackState.Playing && !fullyDownloaded)
-                    {
-                        Pause();
-                    }
-                    else if (bufferedSeconds > 4 && playbackState == StreamingPlaybackState.Buffering)
-                    {
-                        Play();
-                    }
-                    else if (fullyDownloaded && bufferedSeconds == 0)
-                    {
-                        Debug.WriteLine("Reached end of stream");
-                        StopPlayback();
-                    }
-                }
-
             }
         }
 
@@ -277,16 +287,6 @@ namespace RadioPlayer
         private void MP3StreamingPanel_Disposing(object sender, EventArgs e)
         {
             StopPlayback();
-        }
-
-        public void PausePlayback(object sender, EventArgs e)
-        {
-            if (playbackState == StreamingPlaybackState.Playing || playbackState == StreamingPlaybackState.Buffering)
-            {
-                waveOut.Pause();
-                Debug.WriteLine(String.Format("User requested Pause, waveOut.PlaybackState={0}", waveOut.PlaybackState));
-                playbackState = StreamingPlaybackState.Paused;
-            }
         }
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs e)

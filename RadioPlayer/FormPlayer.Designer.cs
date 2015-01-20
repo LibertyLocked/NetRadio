@@ -38,6 +38,7 @@
             this.labelState = new System.Windows.Forms.Label();
             this.timerPlayer = new System.Windows.Forms.Timer(this.components);
             this.textBoxLyrics = new System.Windows.Forms.TextBox();
+            this.buttonPause = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // 
             // buttonStop
             // 
-            this.buttonStop.Location = new System.Drawing.Point(93, 38);
+            this.buttonStop.Location = new System.Drawing.Point(174, 38);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(75, 23);
             this.buttonStop.TabIndex = 2;
@@ -126,11 +127,22 @@
             this.textBoxLyrics.TabIndex = 10;
             this.textBoxLyrics.Text = "// TODO: Display lyrics here";
             // 
+            // buttonPause
+            // 
+            this.buttonPause.Location = new System.Drawing.Point(93, 38);
+            this.buttonPause.Name = "buttonPause";
+            this.buttonPause.Size = new System.Drawing.Size(75, 23);
+            this.buttonPause.TabIndex = 11;
+            this.buttonPause.Text = "Pause";
+            this.buttonPause.UseVisualStyleBackColor = true;
+            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(429, 272);
+            this.Controls.Add(this.buttonPause);
             this.Controls.Add(this.textBoxLyrics);
             this.Controls.Add(this.labelState);
             this.Controls.Add(this.labelTitle);
@@ -159,6 +171,7 @@
         private System.Windows.Forms.Label labelState;
         private System.Windows.Forms.Timer timerPlayer;
         private System.Windows.Forms.TextBox textBoxLyrics;
+        private System.Windows.Forms.Button buttonPause;
     }
 }
 
