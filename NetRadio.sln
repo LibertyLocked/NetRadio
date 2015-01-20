@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialServer", "SocialServe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAudio", "NAudio\NAudio.csproj", "{DA4F02E3-0B5E-42CD-B8D9-5583FA51D66E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioPlayer.WinForms", "RadioPlayer.WinForms\RadioPlayer.WinForms.csproj", "{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{DA4F02E3-0B5E-42CD-B8D9-5583FA51D66E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DA4F02E3-0B5E-42CD-B8D9-5583FA51D66E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DA4F02E3-0B5E-42CD-B8D9-5583FA51D66E}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Debug|x86.ActiveCfg = Debug|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Debug|x86.Build.0 = Debug|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Release|Any CPU.ActiveCfg = Release|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Release|Mixed Platforms.Build.0 = Release|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Release|x86.ActiveCfg = Release|x86
+		{0D6DD32B-BF4B-4AE8-989B-2C27FE5EFA81}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

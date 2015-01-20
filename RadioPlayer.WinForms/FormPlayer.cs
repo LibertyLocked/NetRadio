@@ -11,11 +11,12 @@ using System.Media;
 using NAudio;
 using NAudio.Wave;
 
-namespace RadioPlayer
+namespace RadioPlayer.WinForms
 {
     public partial class FormPlayer : Form
     {
-        ShoutcastPlayer player = new ShoutcastPlayer();
+        IPlayer player = new ShoutcastPlayer();
+        ILyricsService lyricsService;
 
         public FormPlayer()
         {
@@ -52,8 +53,7 @@ namespace RadioPlayer
             {
                 player.Update();
                 labelState.Text = player.State.ToString();
-                if (player.State != StreamingPlaybackState.Stopped) labelTitle.Text = player.StreamTitle;
-                else labelTitle.Text = "";
+                labelTitle.Text = player.StreamTitle;
             }
 
         }
@@ -61,6 +61,17 @@ namespace RadioPlayer
         private void FormPlayer_FormClosing(object sender, FormClosingEventArgs e)
         {
             player.StopPlayback();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void labelTitle_DoubleClick(object sender, EventArgs e)
+        {
+            Clipboard.SetText(labelTitle.Text);
+            MessageBox.Show("Stream title copied to clipboard.");
         }
     }
 }

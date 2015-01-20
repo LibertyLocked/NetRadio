@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NAudio.Wave;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Diagnostics;
 using System.Threading;
+using NAudio.Wave;
 
 namespace RadioPlayer
 {
-    class ShoutcastPlayer
+    public class ShoutcastPlayer : IPlayer
     {
         private BufferedWaveProvider bufferedWaveProvider;
         private IWavePlayer waveOut;
@@ -19,6 +16,9 @@ namespace RadioPlayer
         private HttpWebRequest webRequest;
         private VolumeWaveProvider16 volumeProvider;
         private float volume;
+        private const string STR_TITLE_NOT_AVAIL = "Stream title not available";
+
+        public event EventHandler StreamTitleChanged;
 
         public string StreamTitle
         {
@@ -101,7 +101,7 @@ namespace RadioPlayer
                 if (waveOut == null && bufferedWaveProvider != null)
                 {
                     Debug.WriteLine("Creating WaveOut Device");
-                    waveOut = CreateWaveOut(); 
+                    waveOut = CreateWaveOut();
                     waveOut.PlaybackStopped += OnPlaybackStopped;
                     volumeProvider = new VolumeWaveProvider16(bufferedWaveProvider);
                     volumeProvider.Volume = Volume;
@@ -128,6 +128,10 @@ namespace RadioPlayer
                     }
                 }
 
+            }
+            else
+            {
+                this.StreamTitle = "";
             }
         }
 
@@ -178,6 +182,7 @@ namespace RadioPlayer
                 {
                     var readFullyStream = new ShoutcastStream(responseStream);
                     readFullyStream.MetaInt = metaInt;
+                    readFullyStream.StreamTitleChanged += this.StreamTitleChanged;
 
                     do
                     {
@@ -196,7 +201,7 @@ namespace RadioPlayer
                                 if (metaInt > 0)
                                     StreamTitle = (readFullyStream.StreamTitle);
                                 else
-                                    StreamTitle = "Title cannot be retrieved";
+                                    StreamTitle = STR_TITLE_NOT_AVAIL;
                             }
                             catch (EndOfStreamException)
                             {

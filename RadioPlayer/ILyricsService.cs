@@ -5,11 +5,9 @@ using System.Text;
 
 namespace RadioPlayer
 {
-    public enum StreamingPlaybackState
+    public interface ILyricsService
     {
-        Stopped,
-        Playing,
-        Buffering,
-        Paused
+        string Name { get; }
+        string GetLyrics(string title, string artist);
     }
 }
