@@ -27,7 +27,7 @@ namespace RadioPlayer.WinForms
             // Create a scrap list
             if (!File.Exists("scraps.txt"))
             {
-                File.Create("scraps.txt");
+                File.Create("scraps.txt").Close();
             }
             scrapList = new ScrapList("scraps.txt");
         }
