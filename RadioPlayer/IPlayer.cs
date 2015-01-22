@@ -5,12 +5,13 @@ using System.Text;
 
 namespace RadioPlayer
 {
-    public interface IPlayer
+    public interface IPlayer : IDisposable
     {
         StreamingPlaybackState State { get; }
         string StreamTitle { get; }
+        int StreamBitrate { get; }
         float Volume { get; set; }
-        event EventHandler StreamTitleChanged;
+        event UnhandledExceptionEventHandler OnException;
 
         void StartPlayback(string url);
         void PausePlayback();

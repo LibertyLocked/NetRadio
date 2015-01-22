@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace RadioPlayer
 {
-    class ShoutcastStream : Stream
+    public class ShoutcastStream : Stream
     {
         private int metaInt;
         private int receivedBytes;
@@ -27,7 +27,7 @@ namespace RadioPlayer
         /// <summary>
         /// Is fired, when a new StreamTitle is received
         /// </summary>
-        public event EventHandler StreamTitleChanged;
+        public event StreamTitleChangedEventHandler StreamTitleChanged;
 
         public int MetaInt
         {
@@ -88,7 +88,9 @@ namespace RadioPlayer
         protected virtual void OnStreamTitleChanged()
         {
             if (StreamTitleChanged != null)
-                StreamTitleChanged(this, EventArgs.Empty);
+            {
+                StreamTitleChanged(this, new StreamTitleChangedEventArgs(this.StreamTitle));
+            }
         }
 
         /// <summary>

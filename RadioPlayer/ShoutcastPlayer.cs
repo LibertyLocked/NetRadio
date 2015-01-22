@@ -16,11 +16,18 @@ namespace RadioPlayer
         private HttpWebRequest webRequest;
         private VolumeWaveProvider16 volumeProvider;
         private float volume;
+
         private const string STR_TITLE_NOT_AVAIL = "Stream title not available";
 
-        public event EventHandler StreamTitleChanged;
+        public event UnhandledExceptionEventHandler OnException;
 
         public string StreamTitle
+        {
+            get;
+            private set;
+        }
+
+        public int StreamBitrate
         {
             get;
             private set;
@@ -53,7 +60,19 @@ namespace RadioPlayer
             {
                 playbackState = StreamingPlaybackState.Buffering;
                 bufferedWaveProvider = null;
-                ThreadPool.QueueUserWorkItem(StreamMp3, url);
+                ThreadPool.QueueUserWorkItem(state =>
+                                                {
+                                                    try
+                                                    {
+                                                        StreamMp3(url);
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        if (OnException != null)
+                                                            OnException(this, new UnhandledExceptionEventArgs(ex, true));
+                                                    }
+                                                }
+                );
                 //timer1.Enabled = true;
             }
             else if (playbackState == StreamingPlaybackState.Paused)
@@ -78,7 +97,8 @@ namespace RadioPlayer
             {
                 if (!fullyDownloaded)
                 {
-                    webRequest.Abort();
+                    if (webRequest != null)
+                        webRequest.Abort();
                 }
                 
                 playbackState = StreamingPlaybackState.Stopped;
@@ -135,6 +155,19 @@ namespace RadioPlayer
             }
         }
 
+        public void Dispose()
+        {
+            this.webRequest = null;
+            try
+            {
+                waveOut.Stop();
+                waveOut.Dispose();
+            }
+            catch { }
+            waveOut = null;
+            //this.StopPlayback();
+        }
+
         private void StreamMp3(object state)
         {
             fullyDownloaded = false;
@@ -182,7 +215,6 @@ namespace RadioPlayer
                 {
                     var readFullyStream = new ShoutcastStream(responseStream);
                     readFullyStream.MetaInt = metaInt;
-                    readFullyStream.StreamTitleChanged += this.StreamTitleChanged;
 
                     do
                     {
@@ -223,6 +255,9 @@ namespace RadioPlayer
                                 bufferedWaveProvider = new BufferedWaveProvider(decompressor.OutputFormat);
                                 bufferedWaveProvider.BufferDuration = TimeSpan.FromSeconds(20); // allow us to get well ahead of ourselves
                                 //this.bufferedWaveProvider.BufferedDuration = 250;
+
+                                // Set the bitrate property
+                                this.StreamBitrate = frame.BitRate;
                             }
                             try
                             {

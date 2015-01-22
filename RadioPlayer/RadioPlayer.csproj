@@ -48,12 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartLyricsService.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="ILyricsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoutcastPlayer.cs" />
     <Compile Include="ShoutcastStream.cs" />
     <Compile Include="StreamingPlaybackState.cs" />
+    <Compile Include="StreamTitleChangedEventArgs.cs" />
+    <Compile Include="StreamTitleChangedEventhandler.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -79,6 +82,9 @@
       <Project>{DA4F02E3-0B5E-42CD-B8D9-5583FA51D66E}</Project>
       <Name>NAudio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
