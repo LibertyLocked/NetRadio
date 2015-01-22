@@ -21,6 +21,23 @@ namespace RadioPlayer.WinForms
             ReloadListBox();
         }
 
+        private void ReloadListBox()
+        {
+            // clear the listbox
+            listBoxScraps.Items.Clear();
+
+            // get the scraps
+            string[] scraps = scrapList.GetList();
+
+            foreach (string scrap in scraps)
+            {
+                listBoxScraps.Items.Add(scrap);
+            }
+
+            // save the scraplist
+            scrapList.SaveToFile("scraps.txt");
+        }
+
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             if (listBoxScraps.SelectedItem != null)
@@ -39,21 +56,15 @@ namespace RadioPlayer.WinForms
             }
         }
 
-        private void ReloadListBox()
+        private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            // clear the listbox
-            listBoxScraps.Items.Clear();
+            ReloadListBox();
+        }
 
-            // get the scraps
-            string[] scraps = scrapList.GetList();
-
-            foreach (string scrap in scraps)
-            {
-                listBoxScraps.Items.Add(scrap);
-            }
-
-            // save the scraplist
-            scrapList.SaveToFile("scraps.txt");
+        private void listBoxScraps_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+                buttonDelete_Click(sender, e);
         }
     }
 }
