@@ -87,7 +87,7 @@ namespace RadioPlayer
 
         private string RemoveIllegalChars(string input)
         {
-            return input.Replace("\'", "").Replace("&", "");
+            return input.Replace(@"'", "").Replace(@"&", "");
         }
     }
 }

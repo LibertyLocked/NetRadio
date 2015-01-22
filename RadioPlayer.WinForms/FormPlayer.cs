@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Media;
-
+using System.IO;
 using NAudio;
 using NAudio.Wave;
 
@@ -18,18 +18,31 @@ namespace RadioPlayer.WinForms
         IPlayer player = new ShoutcastPlayer();
         ILyricsService lyricsService = new ChartLyricsService();
         string oldTitle, newTitle;
+        ScrapList scrapList;
 
         public FormPlayer()
         {
             InitializeComponent();
             labelTitle.Text = "";
             player.OnException += OnPlayerException;
+
+            // Create a scrap list
+            if (!File.Exists("scraps.txt"))
+            {
+                File.Create("scraps.txt");
+            }
+            scrapList = new ScrapList("scraps.txt");
         }
 
         private void SetupPlayer()
         {
             player = new ShoutcastPlayer();
             player.OnException += OnPlayerException;
+        }
+
+        private void OnTitleChanged()
+        {
+            ShowLyrics();
         }
 
         private void ShowLyrics()
@@ -68,7 +81,10 @@ namespace RadioPlayer.WinForms
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            player.StartPlayback(textBoxUrl.Text);
+            if (!String.IsNullOrWhiteSpace(textBoxUrl.Text))
+            {
+                player.StartPlayback(textBoxUrl.Text);
+            }
         }
 
         private void buttonPause_Click(object sender, EventArgs e)
@@ -81,11 +97,9 @@ namespace RadioPlayer.WinForms
             player.StopPlayback();
         }
 
-        private void trackBarVolume_Scroll(object sender, EventArgs e)
+        private void volumeSlider1_VolumeChanged(object sender, EventArgs e)
         {
-            labelVolume.Text = trackBarVolume.Value.ToString();
-
-            player.Volume = trackBarVolume.Value / (float)trackBarVolume.Maximum;
+            player.Volume = volumeSlider1.Volume;
         }
 
         private void timerPlayer_Tick(object sender, EventArgs e)
@@ -98,9 +112,13 @@ namespace RadioPlayer.WinForms
 
                 if (player.State == StreamingPlaybackState.Playing)
                 {
-                    labelState.Text += " - " + player.StreamBitrate / 1000 + " Kbps";
+                    labelState.Text += " - " + player.StreamBitrate / 1000 + " K";
                 }
                 
+                // Enables scrap button if title is available
+                buttonScrap.Visible = !String.IsNullOrWhiteSpace(player.StreamTitle);
+                // Enable / disable scrap button
+                buttonScrap.Enabled = !scrapList.Exists(player.StreamTitle);
 
                 // Enable or disable buttons and textboxes based on state
                 if (player.State == StreamingPlaybackState.Buffering)
@@ -123,7 +141,7 @@ namespace RadioPlayer.WinForms
                 newTitle = player.StreamTitle;
                 if (oldTitle != newTitle && !String.IsNullOrWhiteSpace(newTitle))
                 {
-                    ShowLyrics();
+                    OnTitleChanged();
                 }
                 oldTitle = newTitle;
             }
@@ -145,7 +163,7 @@ namespace RadioPlayer.WinForms
             if (!String.IsNullOrWhiteSpace(labelTitle.Text))
             {
                 Clipboard.SetText(labelTitle.Text);
-                MessageBox.Show("Stream title copied to clipboard." + Environment.NewLine + labelTitle.Text);
+                MessageBox.Show("Copied to clipboard." + Environment.NewLine + labelTitle.Text);
             }
         }
 
@@ -163,6 +181,17 @@ namespace RadioPlayer.WinForms
                 while (player.State != StreamingPlaybackState.Stopped) { }
                 player.StartPlayback(textBoxUrl.Text);
             }
+        }
+
+        private void buttonScrap_Click(object sender, EventArgs e)
+        {
+            scrapList.Add(player.StreamTitle);
+            scrapList.SaveToFile("scraps.txt");
+        }
+
+        private void editScrapsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormScrapEditor(this.scrapList).Show();
         }
     }
 }

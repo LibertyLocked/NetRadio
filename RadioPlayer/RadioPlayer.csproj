@@ -52,6 +52,7 @@
     <Compile Include="IPlayer.cs" />
     <Compile Include="ILyricsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScrapList.cs" />
     <Compile Include="ShoutcastPlayer.cs" />
     <Compile Include="ShoutcastStream.cs" />
     <Compile Include="StreamingPlaybackState.cs" />

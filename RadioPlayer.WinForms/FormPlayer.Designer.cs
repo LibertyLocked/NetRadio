@@ -32,8 +32,6 @@
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonPlay = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
-            this.trackBarVolume = new System.Windows.Forms.TrackBar();
-            this.labelVolume = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelState = new System.Windows.Forms.Label();
             this.timerPlayer = new System.Windows.Forms.Timer(this.components);
@@ -48,7 +46,11 @@
             this.favoritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBoxChannels = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
+            this.buttonScrap = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.volumeSlider1 = new NAudio.Gui.VolumeSlider();
+            this.editChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editScrapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,33 +81,12 @@
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
-            // trackBarVolume
-            // 
-            this.trackBarVolume.LargeChange = 10;
-            this.trackBarVolume.Location = new System.Drawing.Point(189, 67);
-            this.trackBarVolume.Maximum = 100;
-            this.trackBarVolume.Name = "trackBarVolume";
-            this.trackBarVolume.Size = new System.Drawing.Size(104, 45);
-            this.trackBarVolume.TabIndex = 4;
-            this.trackBarVolume.TickFrequency = 10;
-            this.trackBarVolume.Value = 100;
-            this.trackBarVolume.Scroll += new System.EventHandler(this.trackBarVolume_Scroll);
-            // 
-            // labelVolume
-            // 
-            this.labelVolume.AutoSize = true;
-            this.labelVolume.Location = new System.Drawing.Point(299, 72);
-            this.labelVolume.Name = "labelVolume";
-            this.labelVolume.Size = new System.Drawing.Size(25, 13);
-            this.labelVolume.TabIndex = 5;
-            this.labelVolume.Text = "100";
-            // 
             // labelTitle
             // 
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(12, 119);
+            this.labelTitle.Location = new System.Drawing.Point(12, 103);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(385, 28);
+            this.labelTitle.Size = new System.Drawing.Size(337, 44);
             this.labelTitle.TabIndex = 8;
             this.labelTitle.Text = "STREAM TITLE";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -115,7 +96,7 @@
             // 
             this.labelState.AutoSize = true;
             this.labelState.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelState.Location = new System.Drawing.Point(12, 103);
+            this.labelState.Location = new System.Drawing.Point(280, 75);
             this.labelState.Name = "labelState";
             this.labelState.Size = new System.Drawing.Size(53, 16);
             this.labelState.TabIndex = 7;
@@ -200,6 +181,9 @@
             // 
             // favoritesToolStripMenuItem
             // 
+            this.favoritesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editChannelsToolStripMenuItem,
+            this.editScrapsToolStripMenuItem});
             this.favoritesToolStripMenuItem.Name = "favoritesToolStripMenuItem";
             this.favoritesToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.favoritesToolStripMenuItem.Text = "Favorites";
@@ -220,33 +204,74 @@
             "http://205.164.62.22:7800/",
             "http://us1.internet-radio.com:11094/",
             "http://130.166.82.184:8000/"});
-            this.listBoxChannels.Location = new System.Drawing.Point(403, 41);
+            this.listBoxChannels.Location = new System.Drawing.Point(403, 60);
             this.listBoxChannels.Name = "listBoxChannels";
-            this.listBoxChannels.Size = new System.Drawing.Size(162, 277);
+            this.listBoxChannels.Size = new System.Drawing.Size(162, 264);
             this.listBoxChannels.TabIndex = 6;
             this.listBoxChannels.SelectedIndexChanged += new System.EventHandler(this.listBoxChannels_SelectedIndexChanged);
+            // 
+            // buttonScrap
+            // 
+            this.buttonScrap.Location = new System.Drawing.Point(355, 103);
+            this.buttonScrap.Name = "buttonScrap";
+            this.buttonScrap.Size = new System.Drawing.Size(42, 44);
+            this.buttonScrap.TabIndex = 10;
+            this.buttonScrap.Text = "fav";
+            this.buttonScrap.UseVisualStyleBackColor = true;
+            this.buttonScrap.Click += new System.EventHandler(this.buttonScrap_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(403, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 16);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Channels";
+            // 
+            // volumeSlider1
+            // 
+            this.volumeSlider1.Location = new System.Drawing.Point(189, 67);
+            this.volumeSlider1.Name = "volumeSlider1";
+            this.volumeSlider1.Size = new System.Drawing.Size(85, 33);
+            this.volumeSlider1.TabIndex = 4;
+            this.volumeSlider1.VolumeChanged += new System.EventHandler(this.volumeSlider1_VolumeChanged);
+            // 
+            // editChannelsToolStripMenuItem
+            // 
+            this.editChannelsToolStripMenuItem.Name = "editChannelsToolStripMenuItem";
+            this.editChannelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editChannelsToolStripMenuItem.Text = "Edit Channels";
+            // 
+            // editScrapsToolStripMenuItem
+            // 
+            this.editScrapsToolStripMenuItem.Name = "editScrapsToolStripMenuItem";
+            this.editScrapsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editScrapsToolStripMenuItem.Text = "Edit Scraps";
+            this.editScrapsToolStripMenuItem.Click += new System.EventHandler(this.editScrapsToolStripMenuItem_Click);
             // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 334);
+            this.Controls.Add(this.volumeSlider1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonScrap);
             this.Controls.Add(this.listBoxChannels);
             this.Controls.Add(this.buttonPause);
             this.Controls.Add(this.textBoxLyrics);
             this.Controls.Add(this.labelState);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.labelVolume);
-            this.Controls.Add(this.trackBarVolume);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonPlay);
             this.Controls.Add(this.textBoxUrl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormPlayer";
-            this.Text = "Form1";
+            this.Text = "FormPlayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPlayer_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -259,8 +284,6 @@
         private System.Windows.Forms.TextBox textBoxUrl;
         private System.Windows.Forms.Button buttonPlay;
         private System.Windows.Forms.Button buttonStop;
-        private System.Windows.Forms.TrackBar trackBarVolume;
-        private System.Windows.Forms.Label labelVolume;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelState;
         private System.Windows.Forms.Timer timerPlayer;
@@ -275,6 +298,11 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ListBox listBoxChannels;
+        private System.Windows.Forms.Button buttonScrap;
+        private System.Windows.Forms.Label label1;
+        private NAudio.Gui.VolumeSlider volumeSlider1;
+        private System.Windows.Forms.ToolStripMenuItem editChannelsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editScrapsToolStripMenuItem;
     }
 }
 

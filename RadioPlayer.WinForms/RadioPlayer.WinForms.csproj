@@ -52,10 +52,19 @@
     <Compile Include="FormPlayer.Designer.cs">
       <DependentUpon>FormPlayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormScrapEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormScrapEditor.Designer.cs">
+      <DependentUpon>FormScrapEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormPlayer.resx">
       <DependentUpon>FormPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormScrapEditor.resx">
+      <DependentUpon>FormScrapEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
