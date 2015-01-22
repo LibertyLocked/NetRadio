@@ -8,8 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Media;
 using System.IO;
-using NAudio;
-using NAudio.Wave;
 
 namespace RadioPlayer.WinForms
 {
