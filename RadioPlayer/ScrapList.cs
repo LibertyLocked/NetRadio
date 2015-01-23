@@ -2,43 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
+using System.Xml.Serialization;
 
 namespace RadioPlayer
 {
+    [Serializable]
     public class ScrapList
     {
-        List<String> items;
+        [XmlArray]
+        public List<string> Items { get; set; }
 
         public ScrapList()
         {
-            items = new List<string>();
-        }
-
-        public ScrapList(List<String> items)
-        {
-            this.items = items;
-        }
-
-        public ScrapList(string plainTextFile)
-        {
-            items = new List<string>();
-            using (StreamReader sr = new StreamReader(plainTextFile))
-            {
-                while (!sr.EndOfStream)
-                {
-                    string line = sr.ReadLine();
-                    if (!String.IsNullOrWhiteSpace(line))
-                    {
-                        items.Add(line);
-                    }
-                }
-            }
+            Items = new List<string>();
         }
 
         public bool Exists(string item)
         {
-            return items.Contains(item);
+            return Items.Contains(item);
         }
 
         public bool Add(string item)
@@ -49,7 +30,7 @@ namespace RadioPlayer
             }
             else
             {
-                items.Add(item);
+                Items.Add(item);
                 return true;
             }
         }
@@ -58,7 +39,7 @@ namespace RadioPlayer
         {
             if (Exists(item))
             {
-                items.Remove(item);
+                Items.Remove(item);
                 return true;
             }
             else
@@ -67,26 +48,14 @@ namespace RadioPlayer
             }
         }
 
-        public void SaveToFile(string fileName)
-        {
-            using (StreamWriter sw = new StreamWriter(fileName, false))
-            {
-                foreach (string item in items)
-                {
-                    if (!String.IsNullOrWhiteSpace(item))
-                        sw.WriteLine(item);
-                }
-            }
-        }
-
         /// <summary>
         /// Gets a copy of the scraps.
         /// </summary>
         /// <returns></returns>
-        public String[] GetList()
+        public String[] GetArray()
         {
-            string[] arr = new string[items.Count];
-            items.CopyTo(arr);
+            string[] arr = new string[Items.Count];
+            Items.CopyTo(arr);
 
             return arr;
         }

@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormChannelEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChannelEditor.Designer.cs">
+      <DependentUpon>FormChannelEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormChannelEditor.resx">
+      <DependentUpon>FormChannelEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPlayer.resx">
       <DependentUpon>FormPlayer.cs</DependentUpon>
     </EmbeddedResource>

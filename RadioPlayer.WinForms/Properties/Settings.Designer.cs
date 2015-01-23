@@ -22,5 +22,27 @@ namespace RadioPlayer.WinForms.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::RadioPlayer.ScrapList ScrapList {
+            get {
+                return ((global::RadioPlayer.ScrapList)(this["ScrapList"]));
+            }
+            set {
+                this["ScrapList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::RadioPlayer.ChannelList ChannelList {
+            get {
+                return ((global::RadioPlayer.ChannelList)(this["ChannelList"]));
+            }
+            set {
+                this["ChannelList"] = value;
+            }
+        }
     }
 }

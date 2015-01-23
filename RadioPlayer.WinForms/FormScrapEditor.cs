@@ -27,15 +27,12 @@ namespace RadioPlayer.WinForms
             listBoxScraps.Items.Clear();
 
             // get the scraps
-            string[] scraps = scrapList.GetList();
+            string[] scraps = scrapList.GetArray();
 
             foreach (string scrap in scraps)
             {
                 listBoxScraps.Items.Add(scrap);
             }
-
-            // save the scraplist
-            scrapList.SaveToFile("scraps.txt");
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)

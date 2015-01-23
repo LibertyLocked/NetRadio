@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Media;
 using System.IO;
+using RadioPlayer.WinForms.Properties;
+using System.Xml.Serialization;
 
 namespace RadioPlayer.WinForms
 {
@@ -16,7 +18,6 @@ namespace RadioPlayer.WinForms
         IPlayer player = new ShoutcastPlayer();
         ILyricsService lyricsService = new ChartLyricsService();
         string oldTitle, newTitle;
-        ScrapList scrapList;
 
         public FormPlayer()
         {
@@ -24,12 +25,21 @@ namespace RadioPlayer.WinForms
             labelTitle.Text = "";
             player.OnException += OnPlayerException;
 
-            // Create a scrap list
-            if (!File.Exists("scraps.txt"))
+            if (Settings.Default.ScrapList == null)
+                Settings.Default.ScrapList = new ScrapList();
+            if (Settings.Default.ChannelList == null)
             {
-                File.Create("scraps.txt").Close();
+                Settings.Default.ChannelList = new ChannelList();
+                Settings.Default.ChannelList.Add(new ChannelInfo("1.FM - Absolute Country Hits", "http://205.164.62.22:7800/"));
+                Settings.Default.ChannelList.Add(new ChannelInfo("Smooth Jazz Florida", "http://us1.internet-radio.com:11094/"));
+                Settings.Default.ChannelList.Add(new ChannelInfo("KCSN 88.5 FM - Smart Rock", "http://130.166.82.184:8000/"));
             }
-            scrapList = new ScrapList("scraps.txt");
+
+            Settings.Default.Save();
+
+            // Bound channel listbox with channel list
+            ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
+            ReloadListBoxWithScrapList(listBoxScraps, Settings.Default.ScrapList);
         }
 
         private void SetupPlayer()
@@ -69,6 +79,29 @@ namespace RadioPlayer.WinForms
             }
         }
 
+        private void ReloadListBoxWithScrapList(ListBox listBox, ScrapList scrapList)
+        {
+            string[] scraps = scrapList.GetArray();
+            listBox.Items.Clear();
+
+            foreach (string scrap in scraps)
+            {
+                listBox.Items.Add(scrap);
+            }
+
+            // save to config
+            Properties.Settings.Default.Save();
+        }
+
+        private void ReloadListBoxWithChannelList(ListBox listBox, ChannelList channelList)
+        {
+            listBox.DataSource = null;
+            listBox.Items.Clear();
+            listBox.DataSource = Settings.Default.ChannelList.Items;
+            listBox.DisplayMember = "Name";
+            listBox.ValueMember = "Url";
+        }
+
         private void OnPlayerException(object sender, UnhandledExceptionEventArgs e)
         {
             MessageBox.Show(e.ExceptionObject.ToString(), "player just threw an exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -95,11 +128,6 @@ namespace RadioPlayer.WinForms
             player.StopPlayback();
         }
 
-        private void volumeSlider1_VolumeChanged(object sender, EventArgs e)
-        {
-            player.Volume = volumeSlider1.Volume;
-        }
-
         private void timerPlayer_Tick(object sender, EventArgs e)
         {
             if (player != null)
@@ -116,7 +144,7 @@ namespace RadioPlayer.WinForms
                 // Enables scrap button if title is available
                 buttonScrap.Visible = !String.IsNullOrWhiteSpace(player.StreamTitle);
                 // Enable / disable scrap button
-                buttonScrap.Enabled = !scrapList.Exists(player.StreamTitle);
+                buttonScrap.Enabled = !Settings.Default.ScrapList.Exists(player.StreamTitle);
 
                 // Enable or disable buttons and textboxes based on state
                 if (player.State == StreamingPlaybackState.Buffering)
@@ -165,31 +193,125 @@ namespace RadioPlayer.WinForms
             }
         }
 
-        private void listBoxChannels_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (textBoxUrl.Text != (string)listBoxChannels.SelectedItem)
-            {
-                if (player.State == StreamingPlaybackState.Playing || player.State == StreamingPlaybackState.Paused)
-                {
-                    player.StopPlayback();
-                }
-
-                textBoxUrl.Text = (string)listBoxChannels.SelectedItem;
-
-                while (player.State != StreamingPlaybackState.Stopped) { }
-                player.StartPlayback(textBoxUrl.Text);
-            }
-        }
-
         private void buttonScrap_Click(object sender, EventArgs e)
         {
-            scrapList.Add(player.StreamTitle);
-            scrapList.SaveToFile("scraps.txt");
+            Settings.Default.ScrapList.Add(player.StreamTitle);
+
+            // Reload listBoxScraps
+            ReloadListBoxWithScrapList(listBoxScraps, Settings.Default.ScrapList);
         }
 
         private void editScrapsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FormScrapEditor(this.scrapList).Show();
+            //new FormScrapEditor(scrapList).ShowDialog();
+            //ReloadListBoxScraps();
+        }
+
+        private void trackBarVolume_Scroll(object sender, EventArgs e)
+        {
+            player.Volume = trackBarVolume.Value / (float)trackBarVolume.Maximum;
+        }
+
+        private void listBoxChannels_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                listBoxChannels.SelectedIndex = listBoxChannels.IndexFromPoint(e.Location);
+                contextMenuStripChannels.Show(Control.MousePosition);
+            }
+        }
+
+        private void listBoxChannels_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.listBoxChannels.IndexFromPoint(e.Location);
+            if (index >= 0)
+            {
+                listBoxChannels.SelectedIndex = index;
+                if (listBoxChannels.SelectedItem != null && (player.State == StreamingPlaybackState.Stopped || textBoxUrl.Text != listBoxChannels.SelectedItem.ToString()))
+                {
+                    if (player.State == StreamingPlaybackState.Playing || player.State == StreamingPlaybackState.Paused)
+                    {
+                        player.StopPlayback();
+                    }
+
+                    textBoxUrl.Text = listBoxChannels.SelectedValue.ToString();
+
+                    while (player.State != StreamingPlaybackState.Stopped) { }
+                    player.StartPlayback(textBoxUrl.Text);
+                }
+            }
+        }
+
+        private void listBoxScraps_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                listBoxScraps.SelectedIndex = listBoxScraps.IndexFromPoint(e.Location);
+                contextMenuStripScraps.Show(Control.MousePosition);
+            }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (listBoxScraps.SelectedItem != null)
+            {
+                Clipboard.SetText(listBoxScraps.SelectedItem.ToString());
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (listBoxScraps.SelectedItem != null)
+            {
+                Settings.Default.ScrapList.Remove(listBoxScraps.SelectedItem.ToString());
+                ReloadListBoxWithScrapList(listBoxScraps, Settings.Default.ScrapList);
+            }
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            ReloadListBoxWithScrapList(listBoxScraps, Settings.Default.ScrapList);
+        }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormChannelEditor(null).ShowDialog();
+            ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
+        }
+
+        private void configFilepathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Application.LocalUserAppDataPath + Environment.NewLine +
+                "Do you want to open the folder in Windows Explorer?",
+                "Config files are stored in...", MessageBoxButtons.YesNo) == 
+                System.Windows.Forms.DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start(Application.LocalUserAppDataPath);
+            }
+
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listBoxChannels.SelectedItem != null)
+            {
+                Settings.Default.ChannelList.Remove((ChannelInfo)listBoxChannels.SelectedItem);
+                ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
+            }
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listBoxChannels.SelectedItem != null)
+            {
+                new FormChannelEditor((ChannelInfo)listBoxChannels.SelectedItem).ShowDialog();
+                ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
+            }
         }
     }
 }

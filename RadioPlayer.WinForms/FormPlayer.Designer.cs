@@ -44,14 +44,33 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.favoritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listBoxChannels = new System.Windows.Forms.ListBox();
-            this.buttonScrap = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.volumeSlider1 = new NAudio.Gui.VolumeSlider();
             this.editChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editScrapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configFilepathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonScrap = new System.Windows.Forms.Button();
+            this.trackBarVolume = new System.Windows.Forms.TrackBar();
+            this.tabControlScraps = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listBoxChannels = new System.Windows.Forms.ListBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.listBoxScraps = new System.Windows.Forms.ListBox();
+            this.contextMenuStripChannels = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripScraps = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
+            this.tabControlScraps.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.contextMenuStripChannels.SuspendLayout();
+            this.contextMenuStripScraps.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxUrl
@@ -140,7 +159,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(577, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(616, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -188,27 +207,33 @@
             this.favoritesToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.favoritesToolStripMenuItem.Text = "Favorites";
             // 
+            // editChannelsToolStripMenuItem
+            // 
+            this.editChannelsToolStripMenuItem.Name = "editChannelsToolStripMenuItem";
+            this.editChannelsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.editChannelsToolStripMenuItem.Text = "Edit Channels";
+            // 
+            // editScrapsToolStripMenuItem
+            // 
+            this.editScrapsToolStripMenuItem.Name = "editScrapsToolStripMenuItem";
+            this.editScrapsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.editScrapsToolStripMenuItem.Text = "Edit Scraps";
+            this.editScrapsToolStripMenuItem.Click += new System.EventHandler(this.editScrapsToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configFilepathToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // listBoxChannels
+            // configFilepathToolStripMenuItem
             // 
-            this.listBoxChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxChannels.FormattingEnabled = true;
-            this.listBoxChannels.Items.AddRange(new object[] {
-            "http://205.164.62.22:7800/",
-            "http://us1.internet-radio.com:11094/",
-            "http://130.166.82.184:8000/"});
-            this.listBoxChannels.Location = new System.Drawing.Point(403, 60);
-            this.listBoxChannels.Name = "listBoxChannels";
-            this.listBoxChannels.Size = new System.Drawing.Size(162, 264);
-            this.listBoxChannels.TabIndex = 6;
-            this.listBoxChannels.SelectedIndexChanged += new System.EventHandler(this.listBoxChannels_SelectedIndexChanged);
+            this.configFilepathToolStripMenuItem.Name = "configFilepathToolStripMenuItem";
+            this.configFilepathToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.configFilepathToolStripMenuItem.Text = "Show Config Path";
+            this.configFilepathToolStripMenuItem.Click += new System.EventHandler(this.configFilepathToolStripMenuItem_Click);
             // 
             // buttonScrap
             // 
@@ -220,46 +245,156 @@
             this.buttonScrap.UseVisualStyleBackColor = true;
             this.buttonScrap.Click += new System.EventHandler(this.buttonScrap_Click);
             // 
-            // label1
+            // trackBarVolume
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(403, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 16);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Channels";
+            this.trackBarVolume.LargeChange = 10;
+            this.trackBarVolume.Location = new System.Drawing.Point(189, 67);
+            this.trackBarVolume.Maximum = 100;
+            this.trackBarVolume.Name = "trackBarVolume";
+            this.trackBarVolume.Size = new System.Drawing.Size(85, 45);
+            this.trackBarVolume.TabIndex = 4;
+            this.trackBarVolume.TickFrequency = 25;
+            this.trackBarVolume.Value = 100;
+            this.trackBarVolume.Scroll += new System.EventHandler(this.trackBarVolume_Scroll);
             // 
-            // volumeSlider1
+            // tabControlScraps
             // 
-            this.volumeSlider1.Location = new System.Drawing.Point(189, 67);
-            this.volumeSlider1.Name = "volumeSlider1";
-            this.volumeSlider1.Size = new System.Drawing.Size(85, 33);
-            this.volumeSlider1.TabIndex = 4;
-            this.volumeSlider1.VolumeChanged += new System.EventHandler(this.volumeSlider1_VolumeChanged);
+            this.tabControlScraps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlScraps.Controls.Add(this.tabPage1);
+            this.tabControlScraps.Controls.Add(this.tabPage2);
+            this.tabControlScraps.Location = new System.Drawing.Point(406, 27);
+            this.tabControlScraps.Name = "tabControlScraps";
+            this.tabControlScraps.SelectedIndex = 0;
+            this.tabControlScraps.Size = new System.Drawing.Size(198, 295);
+            this.tabControlScraps.TabIndex = 12;
             // 
-            // editChannelsToolStripMenuItem
+            // tabPage1
             // 
-            this.editChannelsToolStripMenuItem.Name = "editChannelsToolStripMenuItem";
-            this.editChannelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.editChannelsToolStripMenuItem.Text = "Edit Channels";
+            this.tabPage1.Controls.Add(this.listBoxChannels);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(190, 269);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Channels";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // editScrapsToolStripMenuItem
+            // listBoxChannels
             // 
-            this.editScrapsToolStripMenuItem.Name = "editScrapsToolStripMenuItem";
-            this.editScrapsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.editScrapsToolStripMenuItem.Text = "Edit Scraps";
-            this.editScrapsToolStripMenuItem.Click += new System.EventHandler(this.editScrapsToolStripMenuItem_Click);
+            this.listBoxChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxChannels.DisplayMember = "Url";
+            this.listBoxChannels.FormattingEnabled = true;
+            this.listBoxChannels.Location = new System.Drawing.Point(0, 0);
+            this.listBoxChannels.Name = "listBoxChannels";
+            this.listBoxChannels.Size = new System.Drawing.Size(190, 264);
+            this.listBoxChannels.TabIndex = 6;
+            this.listBoxChannels.ValueMember = "Url";
+            this.listBoxChannels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxChannels_MouseDoubleClick);
+            this.listBoxChannels.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBoxChannels_MouseUp);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.listBoxScraps);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(190, 269);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Scraps";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // listBoxScraps
+            // 
+            this.listBoxScraps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxScraps.FormattingEnabled = true;
+            this.listBoxScraps.Location = new System.Drawing.Point(0, 0);
+            this.listBoxScraps.Name = "listBoxScraps";
+            this.listBoxScraps.Size = new System.Drawing.Size(190, 264);
+            this.listBoxScraps.TabIndex = 7;
+            this.listBoxScraps.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBoxScraps_MouseUp);
+            // 
+            // contextMenuStripChannels
+            // 
+            this.contextMenuStripChannels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.removeToolStripMenuItem,
+            this.refreshToolStripMenuItem});
+            this.contextMenuStripChannels.Name = "contextMenuStrip1";
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(153, 114);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // contextMenuStripScraps
+            // 
+            this.contextMenuStripScraps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.contextMenuStripScraps.Name = "contextMenuStrip1";
+            this.contextMenuStripScraps.Size = new System.Drawing.Size(118, 70);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem1.Text = "Copy";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem2.Text = "Remove";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem3.Text = "Refresh";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 334);
-            this.Controls.Add(this.volumeSlider1);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(616, 334);
+            this.Controls.Add(this.tabControlScraps);
+            this.Controls.Add(this.trackBarVolume);
             this.Controls.Add(this.buttonScrap);
-            this.Controls.Add(this.listBoxChannels);
             this.Controls.Add(this.buttonPause);
             this.Controls.Add(this.textBoxLyrics);
             this.Controls.Add(this.labelState);
@@ -274,6 +409,12 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPlayer_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
+            this.tabControlScraps.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.contextMenuStripChannels.ResumeLayout(false);
+            this.contextMenuStripScraps.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,12 +438,25 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ListBox listBoxChannels;
         private System.Windows.Forms.Button buttonScrap;
-        private System.Windows.Forms.Label label1;
-        private NAudio.Gui.VolumeSlider volumeSlider1;
         private System.Windows.Forms.ToolStripMenuItem editChannelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editScrapsToolStripMenuItem;
+        private System.Windows.Forms.TrackBar trackBarVolume;
+        private System.Windows.Forms.TabControl tabControlScraps;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ListBox listBoxChannels;
+        private System.Windows.Forms.ListBox listBoxScraps;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripChannels;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripScraps;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configFilepathToolStripMenuItem;
     }
 }
 

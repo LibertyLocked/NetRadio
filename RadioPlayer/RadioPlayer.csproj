@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChannelInfo.cs" />
+    <Compile Include="ChannelList.cs" />
     <Compile Include="ChartLyricsService.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="ILyricsService.cs" />
