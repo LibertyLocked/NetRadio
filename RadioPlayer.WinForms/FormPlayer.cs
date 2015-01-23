@@ -100,6 +100,8 @@ namespace RadioPlayer.WinForms
             listBox.DataSource = Settings.Default.ChannelList.Items;
             listBox.DisplayMember = "Name";
             listBox.ValueMember = "Url";
+
+            Settings.Default.Save();
         }
 
         private void OnPlayerException(object sender, UnhandledExceptionEventArgs e)
@@ -227,7 +229,7 @@ namespace RadioPlayer.WinForms
             if (index >= 0)
             {
                 listBoxChannels.SelectedIndex = index;
-                if (listBoxChannels.SelectedItem != null && (player.State == StreamingPlaybackState.Stopped || textBoxUrl.Text != listBoxChannels.SelectedItem.ToString()))
+                if (listBoxChannels.SelectedItem != null && (player.State == StreamingPlaybackState.Stopped || textBoxUrl.Text != listBoxChannels.SelectedValue.ToString()))
                 {
                     if (player.State == StreamingPlaybackState.Playing || player.State == StreamingPlaybackState.Paused)
                     {
