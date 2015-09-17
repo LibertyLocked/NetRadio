@@ -75,7 +75,7 @@ namespace RadioPlayer.WinForms
             }
             catch (Exception ex)
             {
-                textBoxLyrics.Text = ex.ToString();
+                
             }
         }
 
@@ -191,7 +191,13 @@ namespace RadioPlayer.WinForms
             if (!String.IsNullOrWhiteSpace(labelTitle.Text))
             {
                 Clipboard.SetText(labelTitle.Text);
-                MessageBox.Show("Copied to clipboard." + Environment.NewLine + labelTitle.Text);
+                DialogResult result = MessageBox.Show("Copied to clipboard." + 
+                    Environment.NewLine + labelTitle.Text + Environment.NewLine + "Do you want to search for lyrics?",
+                    labelTitle.Text, MessageBoxButtons.YesNo);
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start("http://search.azlyrics.com/search.php?q=" + labelTitle.Text);
+                }
             }
         }
 

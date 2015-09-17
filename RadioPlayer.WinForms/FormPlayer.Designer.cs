@@ -35,7 +35,6 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelState = new System.Windows.Forms.Label();
             this.timerPlayer = new System.Windows.Forms.Timer(this.components);
-            this.textBoxLyrics = new System.Windows.Forms.TextBox();
             this.buttonPause = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +47,6 @@
             this.editScrapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configFilepathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonScrap = new System.Windows.Forms.Button();
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
             this.tabControlScraps = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -56,14 +54,15 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listBoxScraps = new System.Windows.Forms.ListBox();
             this.contextMenuStripChannels = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripScraps = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonScrap = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.tabControlScraps.SuspendLayout();
@@ -75,9 +74,11 @@
             // 
             // textBoxUrl
             // 
+            this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxUrl.Location = new System.Drawing.Point(12, 41);
             this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(385, 20);
+            this.textBoxUrl.Size = new System.Drawing.Size(392, 20);
             this.textBoxUrl.TabIndex = 0;
             // 
             // buttonPlay
@@ -105,7 +106,7 @@
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(12, 103);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(337, 44);
+            this.labelTitle.Size = new System.Drawing.Size(344, 44);
             this.labelTitle.TabIndex = 8;
             this.labelTitle.Text = "STREAM TITLE";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -125,19 +126,6 @@
             // 
             this.timerPlayer.Enabled = true;
             this.timerPlayer.Tick += new System.EventHandler(this.timerPlayer_Tick);
-            // 
-            // textBoxLyrics
-            // 
-            this.textBoxLyrics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxLyrics.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxLyrics.Location = new System.Drawing.Point(12, 150);
-            this.textBoxLyrics.Multiline = true;
-            this.textBoxLyrics.Name = "textBoxLyrics";
-            this.textBoxLyrics.ReadOnly = true;
-            this.textBoxLyrics.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxLyrics.Size = new System.Drawing.Size(385, 172);
-            this.textBoxLyrics.TabIndex = 9;
             // 
             // buttonPause
             // 
@@ -159,7 +147,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(616, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(416, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -235,16 +223,6 @@
             this.configFilepathToolStripMenuItem.Text = "Show Config Path";
             this.configFilepathToolStripMenuItem.Click += new System.EventHandler(this.configFilepathToolStripMenuItem_Click);
             // 
-            // buttonScrap
-            // 
-            this.buttonScrap.Location = new System.Drawing.Point(355, 103);
-            this.buttonScrap.Name = "buttonScrap";
-            this.buttonScrap.Size = new System.Drawing.Size(42, 44);
-            this.buttonScrap.TabIndex = 10;
-            this.buttonScrap.Text = "fav";
-            this.buttonScrap.UseVisualStyleBackColor = true;
-            this.buttonScrap.Click += new System.EventHandler(this.buttonScrap_Click);
-            // 
             // trackBarVolume
             // 
             this.trackBarVolume.LargeChange = 10;
@@ -259,15 +237,15 @@
             // 
             // tabControlScraps
             // 
-            this.tabControlScraps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlScraps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlScraps.Controls.Add(this.tabPage1);
             this.tabControlScraps.Controls.Add(this.tabPage2);
-            this.tabControlScraps.Location = new System.Drawing.Point(406, 27);
+            this.tabControlScraps.Location = new System.Drawing.Point(12, 150);
             this.tabControlScraps.Name = "tabControlScraps";
             this.tabControlScraps.SelectedIndex = 0;
-            this.tabControlScraps.Size = new System.Drawing.Size(198, 295);
+            this.tabControlScraps.Size = new System.Drawing.Size(392, 122);
             this.tabControlScraps.TabIndex = 12;
             // 
             // tabPage1
@@ -276,21 +254,21 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(190, 269);
+            this.tabPage1.Size = new System.Drawing.Size(384, 96);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Channels";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // listBoxChannels
             // 
-            this.listBoxChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxChannels.DisplayMember = "Url";
             this.listBoxChannels.FormattingEnabled = true;
             this.listBoxChannels.Location = new System.Drawing.Point(0, 0);
             this.listBoxChannels.Name = "listBoxChannels";
-            this.listBoxChannels.Size = new System.Drawing.Size(190, 264);
+            this.listBoxChannels.Size = new System.Drawing.Size(384, 95);
             this.listBoxChannels.TabIndex = 6;
             this.listBoxChannels.ValueMember = "Url";
             this.listBoxChannels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxChannels_MouseDoubleClick);
@@ -302,20 +280,20 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(190, 269);
+            this.tabPage2.Size = new System.Drawing.Size(384, 96);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Scraps";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // listBoxScraps
             // 
-            this.listBoxScraps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxScraps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxScraps.FormattingEnabled = true;
             this.listBoxScraps.Location = new System.Drawing.Point(0, 0);
             this.listBoxScraps.Name = "listBoxScraps";
-            this.listBoxScraps.Size = new System.Drawing.Size(190, 264);
+            this.listBoxScraps.Size = new System.Drawing.Size(384, 95);
             this.listBoxScraps.TabIndex = 7;
             this.listBoxScraps.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBoxScraps_MouseUp);
             // 
@@ -327,33 +305,33 @@
             this.removeToolStripMenuItem,
             this.refreshToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStrip1";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(153, 114);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(118, 92);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -387,16 +365,26 @@
             this.toolStripMenuItem3.Text = "Refresh";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
+            // buttonScrap
+            // 
+            this.buttonScrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonScrap.Location = new System.Drawing.Point(362, 103);
+            this.buttonScrap.Name = "buttonScrap";
+            this.buttonScrap.Size = new System.Drawing.Size(42, 44);
+            this.buttonScrap.TabIndex = 10;
+            this.buttonScrap.Text = "fav";
+            this.buttonScrap.UseVisualStyleBackColor = true;
+            this.buttonScrap.Click += new System.EventHandler(this.buttonScrap_Click);
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 334);
+            this.ClientSize = new System.Drawing.Size(416, 284);
             this.Controls.Add(this.tabControlScraps);
             this.Controls.Add(this.trackBarVolume);
             this.Controls.Add(this.buttonScrap);
             this.Controls.Add(this.buttonPause);
-            this.Controls.Add(this.textBoxLyrics);
             this.Controls.Add(this.labelState);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.buttonStop);
@@ -428,7 +416,6 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelState;
         private System.Windows.Forms.Timer timerPlayer;
-        private System.Windows.Forms.TextBox textBoxLyrics;
         private System.Windows.Forms.Button buttonPause;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -438,7 +425,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.Button buttonScrap;
         private System.Windows.Forms.ToolStripMenuItem editChannelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editScrapsToolStripMenuItem;
         private System.Windows.Forms.TrackBar trackBarVolume;
@@ -457,6 +443,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configFilepathToolStripMenuItem;
+        private System.Windows.Forms.Button buttonScrap;
     }
 }
 
