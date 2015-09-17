@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,7 +54,6 @@
   <ItemGroup>
     <Compile Include="ChannelInfo.cs" />
     <Compile Include="ChannelList.cs" />
-    <Compile Include="ChartLyricsService.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="ILyricsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

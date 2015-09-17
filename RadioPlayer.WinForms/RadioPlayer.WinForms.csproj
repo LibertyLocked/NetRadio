@@ -49,11 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartLyricsService.cs" />
     <Compile Include="FormChannelEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormChannelEditor.Designer.cs">
       <DependentUpon>FormChannelEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLyricsOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLyricsOptions.Designer.cs">
+      <DependentUpon>FormLyricsOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPlayer.cs">
       <SubType>Form</SubType>
@@ -71,6 +78,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormChannelEditor.resx">
       <DependentUpon>FormChannelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLyricsOptions.resx">
+      <DependentUpon>FormLyricsOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPlayer.resx">
       <DependentUpon>FormPlayer.cs</DependentUpon>

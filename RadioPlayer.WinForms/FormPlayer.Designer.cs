@@ -63,6 +63,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonScrap = new System.Windows.Forms.Button();
+            this.lyricsServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.tabControlScraps.SuspendLayout();
@@ -162,22 +163,23 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lyricsServiceToolStripMenuItem,
             this.optionsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.viewToolStripMenuItem.Text = "Tools";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // playToolStripMenuItem
@@ -198,13 +200,13 @@
             // editChannelsToolStripMenuItem
             // 
             this.editChannelsToolStripMenuItem.Name = "editChannelsToolStripMenuItem";
-            this.editChannelsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.editChannelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.editChannelsToolStripMenuItem.Text = "Edit Channels";
             // 
             // editScrapsToolStripMenuItem
             // 
             this.editScrapsToolStripMenuItem.Name = "editScrapsToolStripMenuItem";
-            this.editScrapsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.editScrapsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.editScrapsToolStripMenuItem.Text = "Edit Scraps";
             this.editScrapsToolStripMenuItem.Click += new System.EventHandler(this.editScrapsToolStripMenuItem_Click);
             // 
@@ -376,6 +378,13 @@
             this.buttonScrap.UseVisualStyleBackColor = true;
             this.buttonScrap.Click += new System.EventHandler(this.buttonScrap_Click);
             // 
+            // lyricsServiceToolStripMenuItem
+            // 
+            this.lyricsServiceToolStripMenuItem.Name = "lyricsServiceToolStripMenuItem";
+            this.lyricsServiceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lyricsServiceToolStripMenuItem.Text = "Lyrics Service";
+            this.lyricsServiceToolStripMenuItem.Click += new System.EventHandler(this.lyricsServiceToolStripMenuItem_Click);
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,6 +453,7 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configFilepathToolStripMenuItem;
         private System.Windows.Forms.Button buttonScrap;
+        private System.Windows.Forms.ToolStripMenuItem lyricsServiceToolStripMenuItem;
     }
 }
 
