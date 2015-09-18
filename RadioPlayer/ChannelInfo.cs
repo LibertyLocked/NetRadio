@@ -21,5 +21,15 @@ namespace RadioPlayer
             Name = name;
             Url = url;
         }
+
+        //public static bool operator ==(ChannelInfo c1, ChannelInfo c2)
+        //{
+        //    return (c1.Name == c2.Name) && (c1.Url == c2.Url);
+        //}
+
+        //public static bool operator !=(ChannelInfo c1, ChannelInfo c2)
+        //{
+        //    return (c1.Name != c2.Name) || (c1.Url != c2.Url);
+        //}
     }
 }

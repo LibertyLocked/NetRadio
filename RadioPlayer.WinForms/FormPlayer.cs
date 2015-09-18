@@ -15,15 +15,49 @@ namespace RadioPlayer.WinForms
 {
     public partial class FormPlayer : Form
     {
-        IPlayer player = new ShoutcastPlayer();
-        ILyricsService lyricsService = new ChartLyricsService();
+        IPlayer player;
+        //ILyricsService lyricsService = new ChartLyricsService();
         string oldTitle, newTitle;
 
         public FormPlayer()
         {
             InitializeComponent();
+            SetupForm();
+            SetupPlayer();
+        }
+
+        public FormPlayer(string file)
+        {
+            InitializeComponent();
+            SetupForm();
+            SetupPlayer();
+            try
+            {
+                ChannelInfo ch = ChannelImporter.ImportFromFile(file);
+                textBoxUrl.Text = ch.Url;
+                player.StartPlayback(ch.Url);
+
+                // ask user if we want to bookmark the channel
+                if (!Settings.Default.ChannelList.Exists(ch))
+                {
+                    DialogResult result = MessageBox.Show("Do you want to bookmark this channel?" + Environment.NewLine + ch.Name, 
+                        "Add to bookmarks", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        Settings.Default.ChannelList.Add(ch);
+                        ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Unable to parse file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SetupForm()
+        {
             labelTitle.Text = "";
-            player.OnException += OnPlayerException;
 
             if (Settings.Default.ScrapList == null)
                 Settings.Default.ScrapList = new ScrapList();
@@ -40,12 +74,15 @@ namespace RadioPlayer.WinForms
             // Bound channel listbox with channel list
             ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
             ReloadListBoxWithScrapList(listBoxScraps, Settings.Default.ScrapList);
+
+            trackBarVolume.Value = (int)(Settings.Default.Volume * trackBarVolume.Maximum);
         }
 
         private void SetupPlayer()
         {
             player = new ShoutcastPlayer();
             player.OnException += OnPlayerException;
+            player.Volume = Settings.Default.Volume;
         }
 
         private void OnTitleChanged()
@@ -217,6 +254,8 @@ namespace RadioPlayer.WinForms
         private void trackBarVolume_Scroll(object sender, EventArgs e)
         {
             player.Volume = trackBarVolume.Value / (float)trackBarVolume.Maximum;
+            Settings.Default.Volume = player.Volume;
+            Settings.Default.Save();
         }
 
         private void listBoxChannels_MouseUp(object sender, MouseEventArgs e)
@@ -345,7 +384,7 @@ namespace RadioPlayer.WinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Failed to import channel");
+                MessageBox.Show(ex.ToString(), "Failed to import channel", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
