@@ -37,15 +37,17 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lyricsServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.favoritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editScrapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configFilepathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
             this.tabControlScraps = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -65,6 +67,7 @@
             this.buttonPause = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonPlay = new System.Windows.Forms.Button();
+            this.importFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.tabControlScraps.SuspendLayout();
@@ -117,8 +120,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
             this.playToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.favoritesToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -130,6 +133,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importFromFileToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -141,6 +145,21 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // playToolStripMenuItem
+            // 
+            this.playToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recordToolStripMenuItem});
+            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.playToolStripMenuItem.Text = "Play";
+            // 
+            // recordToolStripMenuItem
+            // 
+            this.recordToolStripMenuItem.Enabled = false;
+            this.recordToolStripMenuItem.Name = "recordToolStripMenuItem";
+            this.recordToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.recordToolStripMenuItem.Text = "Record";
             // 
             // viewToolStripMenuItem
             // 
@@ -160,15 +179,10 @@
             // 
             // optionsToolStripMenuItem
             // 
+            this.optionsToolStripMenuItem.Enabled = false;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // playToolStripMenuItem
-            // 
-            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.playToolStripMenuItem.Text = "Play";
             // 
             // favoritesToolStripMenuItem
             // 
@@ -181,12 +195,14 @@
             // 
             // editChannelsToolStripMenuItem
             // 
+            this.editChannelsToolStripMenuItem.Enabled = false;
             this.editChannelsToolStripMenuItem.Name = "editChannelsToolStripMenuItem";
             this.editChannelsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.editChannelsToolStripMenuItem.Text = "Edit Channels";
             // 
             // editScrapsToolStripMenuItem
             // 
+            this.editScrapsToolStripMenuItem.Enabled = false;
             this.editScrapsToolStripMenuItem.Name = "editScrapsToolStripMenuItem";
             this.editScrapsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.editScrapsToolStripMenuItem.Text = "Edit Scraps";
@@ -195,7 +211,8 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configFilepathToolStripMenuItem});
+            this.configFilepathToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -203,9 +220,16 @@
             // configFilepathToolStripMenuItem
             // 
             this.configFilepathToolStripMenuItem.Name = "configFilepathToolStripMenuItem";
-            this.configFilepathToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.configFilepathToolStripMenuItem.Text = "Show Config Path";
+            this.configFilepathToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.configFilepathToolStripMenuItem.Text = "Config Path";
             this.configFilepathToolStripMenuItem.Click += new System.EventHandler(this.configFilepathToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // trackBarVolume
             // 
@@ -393,6 +417,13 @@
             this.buttonPlay.UseVisualStyleBackColor = true;
             this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
             // 
+            // importFromFileToolStripMenuItem
+            // 
+            this.importFromFileToolStripMenuItem.Name = "importFromFileToolStripMenuItem";
+            this.importFromFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.importFromFileToolStripMenuItem.Text = "Import from File";
+            this.importFromFileToolStripMenuItem.Click += new System.EventHandler(this.importFromFileToolStripMenuItem_Click);
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -462,6 +493,9 @@
         private System.Windows.Forms.ToolStripMenuItem configFilepathToolStripMenuItem;
         private System.Windows.Forms.Button buttonScrap;
         private System.Windows.Forms.ToolStripMenuItem lyricsServiceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importFromFileToolStripMenuItem;
     }
 }
 

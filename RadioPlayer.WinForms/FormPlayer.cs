@@ -337,6 +337,13 @@ namespace RadioPlayer.WinForms
 
         }
 
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Radio Player (Windows Forms) is part of Project NetRadio" + Environment.NewLine + 
+                "Licensed under GPLv2"
+            , "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listBoxChannels.SelectedItem != null)
@@ -386,6 +393,11 @@ namespace RadioPlayer.WinForms
             {
                 MessageBox.Show(ex.ToString(), "Failed to import channel", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void importFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Please drag .pls or .m3u file to channels panel", "Not implemented");
         }
     }
 }
