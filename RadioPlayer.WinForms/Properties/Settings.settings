@@ -8,8 +8,11 @@
     <Setting Name="ChannelList" Type="RadioPlayer.ChannelList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="LyricsServiceIndex" Type="System.Int32" Scope="User">
+    <Setting Name="LyricsWebProvider" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="LyricsWebUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://search.azlyrics.com/search.php?q=</Value>
     </Setting>
   </Settings>
 </SettingsFile>

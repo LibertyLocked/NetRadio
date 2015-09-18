@@ -48,12 +48,24 @@ namespace RadioPlayer.WinForms.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LyricsServiceIndex {
+        public int LyricsWebProvider {
             get {
-                return ((int)(this["LyricsServiceIndex"]));
+                return ((int)(this["LyricsWebProvider"]));
             }
             set {
-                this["LyricsServiceIndex"] = value;
+                this["LyricsWebProvider"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://search.azlyrics.com/search.php?q=")]
+        public string LyricsWebUrl {
+            get {
+                return ((string)(this["LyricsWebUrl"]));
+            }
+            set {
+                this["LyricsWebUrl"] = value;
             }
         }
     }

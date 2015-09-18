@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using RadioPlayer.WinForms.Properties;
+using RadioPlayer;
 
 namespace RadioPlayer.WinForms
 {
@@ -17,13 +18,24 @@ namespace RadioPlayer.WinForms
         public FormLyricsOptions()
         {
             InitializeComponent();
-            // add all radio buttons to array
-            radioButtons = new List<RadioButton>() { radioButtonAz, radioButtonDirect, radioButtonGenius, radioButtonMetro, radioButtonMusix };
+            // add all radio buttons to list and group box
+            radioButtons = new List<RadioButton>();
+            int posY = 20;
+            foreach (LyricsWebProvider p in Enum.GetValues(typeof(LyricsWebProvider)))
+            {
+                string pName = Enum.GetName(typeof(LyricsWebProvider), p);
+                RadioButton pRadioButton = new RadioButton();
+                pRadioButton.Text = pName;
+                pRadioButton.Location = new Point(6, posY);
+                posY += 24;
+                radioButtons.Add(pRadioButton);
+                groupBoxLyrics.Controls.Add(pRadioButton);
+            }
         }
 
         private void FormLyricsOptions_Load(object sender, EventArgs e)
         {
-            radioButtons[Settings.Default.LyricsServiceIndex].Select();
+            radioButtons[Settings.Default.LyricsWebProvider].Select();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -35,28 +47,10 @@ namespace RadioPlayer.WinForms
         {
             var selected = groupBoxLyrics.Controls.OfType<RadioButton>()
                            .FirstOrDefault(n => n.Checked);
-            Settings.Default.LyricsServiceIndex = radioButtons.IndexOf(selected);
+            Settings.Default.LyricsWebProvider = radioButtons.IndexOf(selected);
+            Settings.Default.LyricsWebUrl = LyricsWeb.GetLyricsWebServiceUrl((LyricsWebProvider)Settings.Default.LyricsWebProvider);
             Settings.Default.Save();
             this.Close();
-        }
-
-        public static string GetRequestUrl(string req)
-        {
-            int svcIndex = Settings.Default.LyricsServiceIndex;
-            // sanitize request
-            req = Sanitize(req);
-            if (svcIndex == 0) return ("http://search.azlyrics.com/search.php?q=" + req);
-            else if (svcIndex == 1) return ("http://www.directlyrics.com/search/?q=" + req);
-            else if (svcIndex == 2) return ("http://genius.com/search?q=" + req);
-            else if (svcIndex == 3) return ("http://www.metrolyrics.com/search.html?search=" + req);
-            else if (svcIndex == 4) return ("https://www.musixmatch.com/search/" + req);
-            else throw new Exception("Invalid lyrics service index");
-        }
-
-        private static string Sanitize(string req)
-        {
-            req = req.Replace('-', ' ');
-            return req;
         }
     }
 }

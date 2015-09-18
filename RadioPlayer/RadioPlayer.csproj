@@ -54,8 +54,11 @@
   <ItemGroup>
     <Compile Include="ChannelInfo.cs" />
     <Compile Include="ChannelList.cs" />
+    <Compile Include="ChartLyricsService.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="ILyricsService.cs" />
+    <Compile Include="LyricsWebProviders.cs" />
+    <Compile Include="LyricsWeb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScrapList.cs" />
     <Compile Include="ShoutcastPlayer.cs" />

@@ -50,34 +50,34 @@ namespace RadioPlayer.WinForms
 
         private void OnTitleChanged()
         {
-            ShowLyrics();
+            //ShowLyrics();
         }
 
-        private void ShowLyrics()
-        {
-            try
-            {
-                string title = "", artist = "";
+        //private void ShowLyrics()
+        //{
+        //    try
+        //    {
+        //        string title = "", artist = "";
 
-                if (!newTitle.Contains('-'))
-                {
-                    title = newTitle;
-                }
-                else
-                {
-                    artist = newTitle.Substring(0, newTitle.IndexOf('-')).Trim();
-                    title = newTitle.Substring(newTitle.IndexOf('-') + 1).Trim();
-                }
+        //        if (!newTitle.Contains('-'))
+        //        {
+        //            title = newTitle;
+        //        }
+        //        else
+        //        {
+        //            artist = newTitle.Substring(0, newTitle.IndexOf('-')).Trim();
+        //            title = newTitle.Substring(newTitle.IndexOf('-') + 1).Trim();
+        //        }
 
-                //textBoxLyrics.Text = "Title: " + title + Environment.NewLine + "Artist: " + artist;
+        //        //textBoxLyrics.Text = "Title: " + title + Environment.NewLine + "Artist: " + artist;
 
-                //textBoxLyrics.Text = lyricsService.GetLyrics(title, artist);
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
+        //        //textBoxLyrics.Text = lyricsService.GetLyrics(title, artist);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         private void ReloadListBoxWithScrapList(ListBox listBox, ScrapList scrapList)
         {
@@ -193,9 +193,9 @@ namespace RadioPlayer.WinForms
                 //Clipboard.SetText(labelTitle.Text);
                 DialogResult result = MessageBox.Show(labelTitle.Text + Environment.NewLine + "Do you want to search for lyrics?",
                     labelTitle.Text, MessageBoxButtons.YesNo);
-                if (result == System.Windows.Forms.DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
-                    System.Diagnostics.Process.Start(FormLyricsOptions.GetRequestUrl(labelTitle.Text));
+                    System.Diagnostics.Process.Start(LyricsWeb.GetRequestUrl(Settings.Default.LyricsWebUrl, labelTitle.Text));
                 }
             }
         }

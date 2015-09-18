@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartLyricsService.cs" />
     <Compile Include="FormChannelEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +75,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="FormChannelEditor.resx">
       <DependentUpon>FormChannelEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +115,21 @@
       <Project>{942A59E1-3FDC-4A46-9A8D-FC22716A6922}</Project>
       <Name>RadioPlayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Media-Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Media-Pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Media-Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paperclip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clipboard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
