@@ -325,5 +325,28 @@ namespace RadioPlayer.WinForms
         {
             new FormLyricsOptions().ShowDialog();
         }
+
+        private void listBoxChannels_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void listBoxChannels_DragDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 0)
+                {
+                    ChannelInfo imported = ChannelImporter.ImportFromFile(files[0]);
+                    Settings.Default.ChannelList.Add(imported);
+                    ReloadListBoxWithChannelList(listBoxChannels, Settings.Default.ChannelList);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Failed to import channel");
+            }
+        }
     }
 }

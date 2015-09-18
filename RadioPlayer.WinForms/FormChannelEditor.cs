@@ -45,5 +45,28 @@ namespace RadioPlayer.WinForms
                 this.Close();
             }
         }
+
+        private void FormChannelEditor_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void FormChannelEditor_DragDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 0)
+                {
+                    ChannelInfo imported = ChannelImporter.ImportFromFile(files[0]);
+                    textBoxDescription.Text = imported.Name;
+                    textBoxUrl.Text = imported.Url;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Failed to import channel");
+            }
+        }
     }
 }

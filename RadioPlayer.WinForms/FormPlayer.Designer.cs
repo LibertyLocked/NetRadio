@@ -245,6 +245,7 @@
             // 
             // listBoxChannels
             // 
+            this.listBoxChannels.AllowDrop = true;
             this.listBoxChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -255,6 +256,8 @@
             this.listBoxChannels.Size = new System.Drawing.Size(384, 108);
             this.listBoxChannels.TabIndex = 6;
             this.listBoxChannels.ValueMember = "Url";
+            this.listBoxChannels.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxChannels_DragDrop);
+            this.listBoxChannels.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxChannels_DragEnter);
             this.listBoxChannels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxChannels_MouseDoubleClick);
             this.listBoxChannels.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBoxChannels_MouseUp);
             // 
