@@ -1,4 +1,6 @@
 # NetRadio
+[![Build status](https://ci.appveyor.com/api/projects/status/tfw4uygdc270u19q?svg=true)](https://ci.appveyor.com/project/LibertyLocked/netradio)
+
 An Internet radio app package that includes a radio player and a social server.
 
 
